@@ -115,13 +115,13 @@ public class MiniBanco {
                     double taxa = valorSaque * TAXA_SAQUE;
                     saldo = sacar(saldo,valorSaque);
                     System.out.printf(" Saque realizado . Taxa cobrada : R$ %.2f%n", taxa);
-                    exibirSaldo(saldo);
                 }
                 //System.out.println(" [Sacar - em breve]");
             }
             else if( opcao == 3 )
             {
-                System.out.println(" [Consultar Saldo]");
+                exibirSaldo(saldo);
+                //System.out.println(" [Consultar Saldo]");
             }
             else if(opcao == 4)
             {
