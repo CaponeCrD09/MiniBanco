@@ -29,6 +29,29 @@ public class MiniBanco {
         return saldo - calcularTotalSaque(valor);
     }
 
+    static void exibirExtrato(String[] extrato, int totalLinhas)
+    {
+        System.out.println("\n--Extrato----------------------");
+        if(totalLinhas == 0)
+        {
+            System.out.println(" Nenhoma movimentacao .");
+        }
+        else{
+            for(int i = 0; i < totalLinhas; i++)
+            {
+                System.out.println(" "+ extrato[i]);
+            }
+        }
+        System.out.println("------------------------------------");
+    }
+
+    static int registrar(String[] extrato , int totalLinhas, String linha)
+    {
+        extrato[totalLinhas] = linha;
+
+        return totalLinhas +1 ;
+    }
+
 
     static void exibirMenu()
     {
@@ -59,6 +82,10 @@ public class MiniBanco {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
+        // variaveis do extrato
+
+        String[] extrato = new String[50];
+        int totalLinhas = 0;
         // variaveis principais
 
         double saldo = 0;
@@ -90,6 +117,7 @@ public class MiniBanco {
                     saldo = deposita(saldo, valor);
                     System.out.println(" Deposito realizado ! ");
                     exibirSaldo(saldo);
+                    totalLinhas = registrar(extrato, totalLinhas, String.format("Deposito + R$ %.2f => Saldo R$ %.2f", valor , saldo));
                 }
                 //System.out.println(" [Depositar - em  breve]");
             }
@@ -110,6 +138,7 @@ public class MiniBanco {
                 {
 
                     System.out.printf(" Saldo insufuciente. Necessario : R$ %.2f%n", calcularTotalSaque(valorSaque));
+                    totalLinhas = registrar(extrato, totalLinhas, String.format(" Saque -R$ %.2f => Saldo : R$ %.2f", valorSaque , saldo));
                 } 
                 else{
                     double taxa = valorSaque * TAXA_SAQUE;
@@ -125,10 +154,13 @@ public class MiniBanco {
             }
             else if(opcao == 4)
             {
-                System.out.println(" [Extrato em breve]");
+
+                exibirExtrato(extrato, totalLinhas);
+                //System.out.println(" [Extrato em breve]");
             }
             else if(opcao == 0 )
             {
+                exibirExtrato(extrato, totalLinhas);   
                 System.out.println(" [Ate Logo, "+ nome + "!]");
             }
             else{
